@@ -19,6 +19,7 @@
         <module>spring-cloud-dao</module>
         <module>spring-cloud-sentinel</module>
         <module>spring-cloud-dubbo</module>
+        <module>spring-cloud-stream</module>
     </modules>
 
 

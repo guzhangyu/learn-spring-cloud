@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: spring_cloud_stream_rabbitmq
+  cloud:
+    stream:
+      bindings:
+        demo_input:
+          group: service-a
+          destination: demo
+          binder: local_rabbit
+        demo_output:
+          group: service-a
+          destination: demo
+          binder: local_rabbit
+      binders:
+        local_rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: guest
+                password: guest
+
+server:
+  port: 8855
