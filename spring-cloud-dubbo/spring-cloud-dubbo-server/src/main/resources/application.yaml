@@ -1,0 +1,27 @@
+server:
+  port: 8871
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: spring_cloud_dubbo_server
+
+dubbo:
+  application:
+    id: spring_cloud_dubbo_server
+  protocol:
+    id: dubbo
+    port: 20990
+  registry:
+    id: spring_cloud_dubbo_server_registry
+    address: nacos://127.0.0.1:8848
+  provider:
+    version: 1.0.0
+    group: dev
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

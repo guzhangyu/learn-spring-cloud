@@ -1,0 +1,21 @@
+server:
+  port: 8865
+
+spring:
+  application:
+    name: spring_cloud_config
+
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+
+        extension-configs:
+          - data-id: acutator.properties
+            group: DEFAULT_GROUP
+            refresh: true
+          - data-id: log.properties
+            group: DEFAULT_GROUP
+            refresh: true
+

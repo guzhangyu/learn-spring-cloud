@@ -1,0 +1,26 @@
+server:
+  port: 8866
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+dubbo:
+  application:
+    name: spring_cloud_dubbo_client
+    id: spring_cloud_dubbo_client
+  protocol:
+    id: dubbo
+  registry:
+#    id: spring_cloud_dubbo_client_registry
+    address: nacos://127.0.0.1:8848
+  consumer:
+    version: 1.0.0
+    group: dev
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+

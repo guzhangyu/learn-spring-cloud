@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.learn.springcloud.dao.WebsitesMapper" >
+  <resultMap id="BaseResultMap" type="com.learn.springcloud.entity.Websites" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="CHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="alexa" property="alexa" jdbcType="INTEGER" />
+    <result column="country" property="country" jdbcType="CHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from websites
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.learn.springcloud.entity.Websites" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into websites (`name`, url, alexa, 
+      country)
+    values (#{name,jdbcType=CHAR}, #{url,jdbcType=VARCHAR}, #{alexa,jdbcType=INTEGER}, 
+      #{country,jdbcType=CHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.learn.springcloud.entity.Websites" >
+    update websites
+    set `name` = #{name,jdbcType=CHAR},
+      url = #{url,jdbcType=VARCHAR},
+      alexa = #{alexa,jdbcType=INTEGER},
+      country = #{country,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, `name`, url, alexa, country
+    from websites
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, `name`, url, alexa, country
+    from websites
+  </select>
+</mapper>
