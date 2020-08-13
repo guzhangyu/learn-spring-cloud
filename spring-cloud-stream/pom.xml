@@ -14,6 +14,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>spring-cloud-stream-rabbitmq</module>
+        <module>spring-cloud-stream-transaction-sender</module>
+        <module>spring-cloud-stream-transaction-receiver</module>
     </modules>
 
 
