@@ -1,15 +1,24 @@
-rocketmq:
-  name-server: 192.168.2.174:9876
-  producer:
-    enable-msg-trace: true
-    group: DefaultCluster
-
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/test?serverTimeZone=UTC&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: root
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          name-server: 192.168.2.174:9876
+          enable-msg-trace: true
+        bindings:
+          output:
+            producer:
+              group: erp
+              transactional: true
+      bindings:
+        output:
+          destination: update-account-score
+
 
 mybatis:
   type-aliases-package: com.learn.springcloud.dao

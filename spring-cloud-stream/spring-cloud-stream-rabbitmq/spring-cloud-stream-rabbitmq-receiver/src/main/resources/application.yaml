@@ -1,0 +1,14 @@
+server:
+  port: 8852
+
+spring:
+  cloud:
+    stream:
+      bindings:
+        demo_input:
+          destination: demo
+          group: service-d
+          consumer:
+            partitioned: true
+      instance-count: 2
+      instance-index: 1

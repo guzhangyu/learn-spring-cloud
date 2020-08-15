@@ -1,0 +1,13 @@
+server:
+  port: 8851
+
+spring:
+  cloud:
+    stream:
+      bindings:
+        demo_output:
+          group: service-d
+          destination: demo
+          producer:
+            partitionKeyExpression: payload.id
+            partitionCount: 2

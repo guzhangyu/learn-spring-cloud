@@ -22,6 +22,15 @@
         <module>spring-cloud-stream</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.2</version>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
 
     <dependencyManagement>
         <dependencies>

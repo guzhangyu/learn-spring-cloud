@@ -1,2 +1,33 @@
-rocketmq:
-  name-server: 192.168.2.174:9876
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test?serverTimeZone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+
+  cloud:
+    stream:
+      rocketmq:
+        binder:
+          name-server: 192.168.2.174:9876
+          enable-msg-trace: true
+        bindings:
+          input:
+            consumer:
+              delayLevelWhenNextConsume: -1
+      bindings:
+        input:
+          destination: update-account-score
+          group: erp
+          consumer:
+            concurrency: 20
+            maxAttempts: 2
+        inputDlq:
+          destination: update-account-score
+          group: '%DLQ%${spring.cloud.stream.bindings.input.group}'
+          consumer:
+            concurrency: 20
+
+mybatis:
+  type-aliases-package: com.learn.springcloud.dao
+  mapper-locations: classpath:mybatis/mapper/*.xml

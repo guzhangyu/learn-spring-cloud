@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.learn.springcloud.dao.OrderMapper" >
+    <resultMap id="BaseResultMap" type="com.learn.springcloud.entity.Order">
+        <result property="id" column="id"/>
+        <result property="tradeId" column="trade_id"/>
+        <result property="itemId" column="item_id" />
+        <result property="itemName" column="item_name"/>
+        <result property="itemPrice" column="item_price"/>
+        <result property="num" column="num"/>
+        <result property="accountId" column="account_id"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModify" column="gmt_modify"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.learn.springcloud.entity.Order">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into `order`(item_name, item_price, num, account_id, gmt_create)
+        values(#{itemName}, #{itemPrice}, #{num}, #{accountId}, #{gmtCreate});
+    </insert>
+
+    <select id="queryByTradeAndItem" resultMap="BaseResultMap">
+        select id, trade_id, item_id, item_name, item_price, num, account_id, gmt_create, gmt_modify
+        from `order`
+        where trade_id = #{tradeId} and item_id = #{itemId}
+    </select>
+</mapper>

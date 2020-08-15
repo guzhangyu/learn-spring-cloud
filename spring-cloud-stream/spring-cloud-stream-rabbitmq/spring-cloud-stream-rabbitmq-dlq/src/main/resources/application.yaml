@@ -1,0 +1,20 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        example-topic-input:
+          destination: good-topic
+          group: stream-exception-handler
+          consumer:
+            max-attempts: 1
+        example-topic-output:
+#          group: stream-exception-handler
+          destination: good-topic
+      rabbit:
+        bindings:
+          example-topic-input:
+            consumer:
+              auto-bind-dlq: true
+
+server:
+  port: 8811
