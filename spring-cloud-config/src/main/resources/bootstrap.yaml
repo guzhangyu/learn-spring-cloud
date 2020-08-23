@@ -19,3 +19,6 @@ spring:
             group: DEFAULT_GROUP
             refresh: true
 
+dingtalk:
+  test: aa
+

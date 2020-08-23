@@ -15,5 +15,6 @@ public class ConfigApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(ConfigApplication.class, args);
         System.out.println(applicationContext.getBean(ConfigConfiguration.class).getTestProp());
+        System.out.println(applicationContext.getEnvironment().getProperty("dingtalk.test"));
     }
 }

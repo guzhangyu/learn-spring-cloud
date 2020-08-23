@@ -1,0 +1,65 @@
+spring:
+  datasource:
+    qz:
+      url: jdbc:mysql://127.0.0.1:3306/quartz?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+    qz1:
+      url: jdbc:mysql://127.0.0.1:3306/test?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+#      type: com.alibaba.druid.pool.DruidDataSource
+
+
+  quartz:
+    job-store-type: jdbc
+    startup-delay: PT60S
+    jdbc:
+      initialize-schema: never
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: clusteredScheduler
+            instanceId: AUTO
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            useProperties: false
+            tablePrefix: qrtz_
+            misfireThreshold: 60000
+            clusterCheckinInterval: 5000
+            isClustered: false
+#            dataSource: qzDS
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 10
+            threadPriority: 5
+            threadsInheritContextClassLoaderOfInitializingThread: true
+#
+#          dataSource:
+#            qzDS:
+#              connectionProvider:
+#                class: com.learn.springboot.quartz.DruidConnectionProvider
+#              URL: jdbc:mysql://127.0.0.1:3306/quartz?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+#              user: root
+#              password: root
+#              driver: com.mysql.cj.jdbc.Driver
+#              maxConnection: 30
+    auto-startup: true
+
+mybatis:
+  type-aliases-package: com.learn.springcloud.dao
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+logging:
+  level:
+    org.quartz: debug
+    org.springframework: debug
+
+
+server:
+  port: 8080
