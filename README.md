@@ -2,11 +2,11 @@
 
 现在有如下模块:
 
-   - config nacos，包含 extension-configs 和 普通 ${application.name}.${file-extension} 两种形式的配置
-   - dubbo 
+   - [config nacos](https://github.com/guzhangyu/learn-spring-cloud/tree/master/spring-cloud-config)，包含 extension-configs 和 普通 ${spring.cloud.nacos.config.prefix}-${spring.cloud.nacos.config.group}.${spring.cloud.nacos.config.file-extension} 两种形式的配置
+   - [dubbo](https://github.com/guzhangyu/learn-spring-cloud/tree/master/spring-cloud-dubbo) 
    - stream 
-        rabbitmq 一般的消息队列
-        rocketmq 事务性消息
+        [rabbitmq](https://github.com/guzhangyu/learn-spring-cloud/tree/master/spring-cloud-stream/spring-cloud-stream-rabbitmq) 消息队列的实践
+        [rocketmq](https://github.com/guzhangyu/learn-spring-cloud/tree/master/spring-cloud-stream/spring-cloud-stream-transaction-sender) 事务性消息
     
-   - sentinel 流控、降级
-   - quartz 多数据源存在时，指定某一个数据源给quartz用
+   - [sentinel](https://github.com/guzhangyu/learn-spring-cloud/tree/master/spring-cloud-sentinel) 流控、降级
+   - [quartz](https://github.com/guzhangyu/learn-spring-cloud/tree/master/springboot-quartz) 多数据源存在时，指定某一个数据源给quartz用
