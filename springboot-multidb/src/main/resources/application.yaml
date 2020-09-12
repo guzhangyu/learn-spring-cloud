@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    druid:
+      type: com.alibaba.druid.pool.DruidDataSource
+      defaultDs: master
+      master:
+        name: master
+        url: jdbc:mysql://localhost:3306/dorm?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC
+        username: root
+        password: root
+
+      slave:
+        name: slave
+        url: jdbc:mysql://localhost:3306/jkm?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC
+        username: root
+        password: root
+
+mybatis-plus:
+  global-config:
+    id-dtype: 0
+    field-strategy: 0
+    db-config:
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+  mapper-locations: classpath:mybatis/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    cache-enabled: true

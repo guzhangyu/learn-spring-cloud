@@ -47,8 +47,6 @@ public class QuartzConfig {
         return new DataSourceProperties();
     }
 
-
-
     @Bean("qzDataSource")
     @Qualifier("qzDataSource")
     public HikariDataSource qzDataSource() {
