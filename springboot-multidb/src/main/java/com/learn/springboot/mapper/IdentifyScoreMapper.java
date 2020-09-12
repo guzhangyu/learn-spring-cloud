@@ -17,6 +17,7 @@ import org.apache.ibatis.annotations.Update;
 @DataSource("slave")
 public interface IdentifyScoreMapper extends BaseMapper<IdentifyScore> {
 
+    @DataSource("slave")
     @Update("update identify_score set score = #{score} where id = 1")
     void updateScore(@Param("score") Integer socre);
 }

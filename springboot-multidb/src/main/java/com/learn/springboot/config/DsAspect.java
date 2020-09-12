@@ -1,7 +1,7 @@
 package com.learn.springboot.config;
 
 import com.learn.springboot.annotation.DataSource;
-import com.learn.springboot.datasource.DbContextHolder;
+import com.learn.springboot.datasource.DynamicDataSourceContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -28,11 +28,13 @@ public class DsAspect {
     public void changeDataSource(DataSource ds) throws Throwable {
         String dsId = ds.value();
         log.info("选择数据源:{}", dsId);
-        DbContextHolder.setCurrentDsStr(dsId);
+        DynamicDataSourceContextHolder.setDataSourceRouterKey(dsId);
+//        DbContextHolder.setCurrentDsStr(dsId);
     }
 
     @After("pointCut()")
     public void restoreDataSource() {
-        DbContextHolder.clearCurrentDsStr();
+//        DbContextHolder.clearCurrentDsStr();
+        DynamicDataSourceContextHolder.removeDataSourceRouterKey();
     }
 }

@@ -8,7 +8,6 @@ import org.apache.ibatis.logging.stdout.StdOutImpl;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +27,7 @@ import java.io.IOException;
 public class MybatisConfiguration {
 
     @Bean
-    public SqlSessionFactory sqlSessionFactory(@Qualifier(value = "dynamicRoutingDataSource") DynamicRoutingDataSource dynamicRoutingDataSource) throws Exception {
+    public SqlSessionFactory sqlSessionFactory(DynamicRoutingDataSource dynamicRoutingDataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dynamicRoutingDataSource);
         return sqlSessionFactoryBean.getObject();
@@ -36,7 +35,7 @@ public class MybatisConfiguration {
 
     @Bean("mybatisSqlSessionFactoryBean")
     @Primary
-    public MybatisSqlSessionFactoryBean sqlSessionFactoryBean(@Qualifier("dynamicRoutingDataSource") DynamicRoutingDataSource dynamicRoutingDataSource) throws IOException {
+    public MybatisSqlSessionFactoryBean sqlSessionFactoryBean(DynamicRoutingDataSource dynamicRoutingDataSource) throws IOException {
         MybatisSqlSessionFactoryBean bean = new MybatisSqlSessionFactoryBean();
         bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mybatis/*.xml"));
         bean.setDataSource(dynamicRoutingDataSource);
