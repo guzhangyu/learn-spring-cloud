@@ -25,7 +25,6 @@ import java.sql.SQLException;
 public class MultiTransactionManagerAop {
 
     private DynamicRoutingDataSource dataSourceRouting = new DynamicRoutingDataSource();
-    private DynamicDataSourceRegister dynamicDataSourceRegister = new DynamicDataSourceRegister();
 
 
     @Pointcut("@annotation(com.learn.springboot.annotation.TransactionMulti)")
@@ -60,7 +59,7 @@ public class MultiTransactionManagerAop {
 
     private void begin(String[] values,int transactionType) throws SQLException {
         for (String value : values) {
-            DataSource dataSource = dynamicDataSourceRegister.getDataSource(value);
+            DataSource dataSource = DynamicDataSourceRegister.getDataSource(value);
             if(dataSource == null){
                 log.error("没有找到数据源:{}", value);
                 continue;

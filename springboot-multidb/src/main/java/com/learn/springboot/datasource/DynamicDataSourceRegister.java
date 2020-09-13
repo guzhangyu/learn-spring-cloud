@@ -20,7 +20,6 @@ import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -108,7 +107,7 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
         return secondDataSourceTransactionManager;
     }
 
-    public DataSource getDataSource(String key){
+    public static DataSource getDataSource(String key){
         return customDataSources.get(key);
     }
 

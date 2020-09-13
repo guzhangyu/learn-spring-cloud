@@ -1,7 +1,6 @@
 spring:
   datasource:
     druid:
-      type: com.alibaba.druid.pool.DruidDataSource
       defaultDs: master
       master:
       - key: master
