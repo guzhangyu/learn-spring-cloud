@@ -24,23 +24,8 @@ import java.sql.SQLException;
 @Slf4j
 public class MultiTransactionManagerAop {
 
-
-//    @Resource(name = "DynamicRoutingDataSource")
-//    DynamicRoutingDataSource dataSourceRouting;
     private DynamicRoutingDataSource dataSourceRouting = new DynamicRoutingDataSource();
     private DynamicDataSourceRegister dynamicDataSourceRegister = new DynamicDataSourceRegister();
-    /**
-     * 存储我们注册的数据源
-     */
-//    private static final Map<String, DataSource> customDataSources = new HashMap<String, DataSource>();
-
-//    private DynamicDataSourceRegister dynamicDataSourceRegister = new DynamicDataSourceRegister();
-
-//    @Resource(name = "dataSourceDorm")
-//    DataSource dataSourceDorm;
-//
-//    @Resource(name = "dataSourceJkm")
-//    DataSource dataSourceJkm;
 
 
     @Pointcut("@annotation(com.learn.springboot.annotation.TransactionMulti)")
@@ -84,7 +69,7 @@ public class MultiTransactionManagerAop {
             prepareTransactionalConnection(connection,transactionType);
             connectBegin(connection);
             //绑定到线程上面
-            dataSourceRouting.bindConnection(value,connection);
+            dataSourceRouting.bindConnection(value, connection);
         }
     }
 

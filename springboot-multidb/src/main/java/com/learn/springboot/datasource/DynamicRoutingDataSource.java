@@ -17,7 +17,7 @@ import java.util.Map;
 public class DynamicRoutingDataSource extends AbstractRoutingDataSource {
 
     //把当前事物下的连接塞入,用于事物处理
-     ThreadLocal<Map<String, ConnectWrap>> connectionThreadLocal = new ThreadLocal<>();
+    final static ThreadLocal<Map<String, ConnectWrap>> connectionThreadLocal = new ThreadLocal<>();
 
     @Override
     protected Object determineCurrentLookupKey() {
@@ -43,6 +43,8 @@ public class DynamicRoutingDataSource extends AbstractRoutingDataSource {
         ConnectWrap connectWarp = new ConnectWrap(connection);
 
         connectionMap.put(key, connectWarp);
+
+        System.out.println("set:" + connectionThreadLocal.get().toString());
     }
 
 
@@ -53,7 +55,7 @@ public class DynamicRoutingDataSource extends AbstractRoutingDataSource {
      */
     public void doCommit() throws SQLException {
         System.out.println("0000011111111111111111111111111111000000000000000000");
-        System.out.println(connectionThreadLocal.get().toString());
+        System.out.println("commit:" + connectionThreadLocal.get().toString());
         Map<String, ConnectWrap> stringConnectionMap = connectionThreadLocal.get();
         if (stringConnectionMap == null) {
             return;
@@ -72,6 +74,7 @@ public class DynamicRoutingDataSource extends AbstractRoutingDataSource {
      * @throws SQLException
      */
     public void rollback() throws SQLException {
+        System.out.println("rollback:" + connectionThreadLocal.get().toString());
         Map<String, ConnectWrap> stringConnectionMap = connectionThreadLocal.get();
         if (stringConnectionMap == null) {
             return;
@@ -85,12 +88,13 @@ public class DynamicRoutingDataSource extends AbstractRoutingDataSource {
     }
 
     public void removeConnectionThreadLocal() {
+        System.out.println("remove:" + connectionThreadLocal.get().toString());
         connectionThreadLocal.remove();
     }
 
 
     /**
-     * 如果 在connectionThreadLocal 中有 说明开启了事物,就从这里面拿
+     * 如果 在connectionThreadLocal 中有 说明开启了事务,就从这里面拿
      *
      * @return
      * @throws SQLException
@@ -99,10 +103,10 @@ public class DynamicRoutingDataSource extends AbstractRoutingDataSource {
     public Connection getConnection() throws SQLException {
         Map<String, ConnectWrap> stringConnectionMap = connectionThreadLocal.get();
         if (stringConnectionMap == null) {
-            //没开事物 直接走
+            //没开事务 直接走
             return determineTargetDataSource().getConnection();
         } else {
-            //开了事物,从当前线程中拿,而且拿到的是 包装过的connect 只有我能关闭O__O "…
+            //开了事务,从当前线程中拿,而且拿到的是 包装过的connect 只有我能关闭O__O "…
             String currentName = (String) determineCurrentLookupKey();
             return stringConnectionMap.get(currentName);
         }
