@@ -2,6 +2,7 @@ package com.learn.springboot.config;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.learn.springboot.datasource.DynamicRoutingDataSource;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -21,7 +22,7 @@ import java.util.Map;
  * @Version 1.0
  */
 @Configuration
-//@AutoConfigureAfter()
+@MapperScan(basePackages = {"com.learn.springboot.mapper"})
 public class DataSourceConfiguration {
 
 //    @Value("${spring.datasource.druid.defaultDs}")

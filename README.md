@@ -10,3 +10,4 @@
     
    - [sentinel](https://github.com/guzhangyu/learn-spring-cloud/tree/master/spring-cloud-sentinel) 流控、降级
    - [quartz](https://github.com/guzhangyu/learn-spring-cloud/tree/master/springboot-quartz) 多数据源存在时，指定某一个数据源给quartz用
+   - [multiDb](https://github.com/guzhangyu/learn-spring-cloud/tree/master/springboot-multidb) 多数据源事务，在mapper层控制使用的数据源，在service层控制哪几个数据源要加上事务
