@@ -15,6 +15,7 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotationMetadata;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
@@ -67,24 +68,13 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
      */
     @Override
     public void registerBeanDefinitions(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry beanDefinitionRegistry) {
-        // 获取所有数据源配置
-        Map config, defauleDataSourceProperties;
-        defauleDataSourceProperties = binder.bind("spring.datasource.druid.master", Map.class).get();
-        // 获取数据源类型
-        String typeStr = evn.getProperty("spring.datasource.druid.type");
-        // 获取数据源类型
-        Class<? extends DataSource> clazz = getDataSourceType(typeStr);
-        // 绑定默认数据源参数 也就是主数据源
-        DataSource consumerDatasource, defaultDatasource = bind(clazz, defauleDataSourceProperties);
-//        //设置事务
-//        DataSourceTransactionManager firstDataSourceTransactionManager = new DataSourceTransactionManager();
-//        firstDataSourceTransactionManager.setDataSource(defaultDatasource);
-        DynamicDataSourceContextHolder.dataSourceIds.add("master");
-        log.info("注册默认数据源成功");
 
-        // 获取其他数据源配置
-        List<Map> configs = binder.bind("spring.datasource.druid.slave", Bindable.listOf(Map.class)).get();
-        registerDataSource(configs);
+        // 获取数据源配置
+        Map config = (Map)binder.bind("spring.datasource.druid.master", Map.class).get().get("0");
+        registerDataSource(config);
+
+        config = (Map)binder.bind("spring.datasource.druid.slave", Map.class).get().get("0");
+        registerDataSource(config);
 
         // bean定义类
         GenericBeanDefinition define = new GenericBeanDefinition();
@@ -93,36 +83,29 @@ public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar,
         // 需要注入的参数
         MutablePropertyValues mpv = define.getPropertyValues();
         // 添加默认数据源，避免key不存在的情况没有数据源可用
-        mpv.add("defaultTargetDataSource", defaultDatasource);
+        mpv.add("defaultTargetDataSource", customDataSources.get("master"));
         // 添加其他数据源
         mpv.add("targetDataSources", customDataSources);
         // 将该bean注册为datasource，不使用springboot自动生成的datasource
         beanDefinitionRegistry.registerBeanDefinition("datasource", define);
-        log.info("注册数据源成功，一共注册{}个数据源", customDataSources.keySet().size() + 1);
+        log.info("注册数据源成功，一共注册{}个数据源", customDataSources.keySet().size());
     }
 
-    private void registerDataSource(List<Map> configs) {
-        Map config;
-        Class<? extends DataSource> clazz;
-        Map defauleDataSourceProperties;
-        DataSource consumerDatasource;
-        // 遍历从数据源
-        for (int i = 0; i < configs.size(); i++) {
-            config = configs.get(i);
-            clazz = getDataSourceType((String) config.get("type"));
-            defauleDataSourceProperties = config;
-            // 绑定参数
-            consumerDatasource = bind(clazz, defauleDataSourceProperties);
-//            //设置事务
-//            DataSourceTransactionManager secondDataSourceTransactionManager = new DataSourceTransactionManager();
-//            secondDataSourceTransactionManager.setDataSource(consumerDatasource);
-            // 获取数据源的key，以便通过该key可以定位到数据源
-            String key = config.get("key").toString();
-            customDataSources.put(key, consumerDatasource);
-            // 数据源上下文，用于管理数据源与记录已经注册的数据源key
-            DynamicDataSourceContextHolder.dataSourceIds.add(key);
-            log.info("注册数据源{}成功", key);
-        }
+    private DataSourceTransactionManager registerDataSource(Map config) {
+        // 绑定参数
+        DataSource consumerDatasource = bind(getDataSourceType((String) config.get("type")), config);
+//      //设置事务
+        DataSourceTransactionManager secondDataSourceTransactionManager = new DataSourceTransactionManager();
+        secondDataSourceTransactionManager.setDataSource(consumerDatasource);
+
+        // 获取数据源的key，以便通过该key可以定位到数据源
+        String key = config.get("key").toString();
+        customDataSources.put(key, consumerDatasource);
+        // 数据源上下文，用于管理数据源与记录已经注册的数据源key
+        DynamicDataSourceContextHolder.dataSourceIds.add(key);
+        log.info("注册数据源{}成功", key);
+
+        return secondDataSourceTransactionManager;
     }
 
     public DataSource getDataSource(String key){

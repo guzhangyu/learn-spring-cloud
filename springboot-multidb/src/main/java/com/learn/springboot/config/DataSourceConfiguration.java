@@ -57,10 +57,10 @@ public class DataSourceConfiguration {
 //        return dynamicRoutingDataSource;
 //    }
 
-    @Bean(name = "transactionManager")
-    public DataSourceTransactionManager transactionManager(DynamicRoutingDataSource dynamicRoutingDataSource) {
-        DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(dynamicRoutingDataSource);
-        return transactionManager;
-    }
+//    @Bean(name = "transactionManager")
+//    public DataSourceTransactionManager transactionManager(DynamicRoutingDataSource dynamicRoutingDataSource) {
+//        DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(dynamicRoutingDataSource);
+//        return transactionManager;
+//    }
 
 }

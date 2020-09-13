@@ -4,6 +4,7 @@ spring:
       type: com.alibaba.druid.pool.DruidDataSource
       defaultDs: master
       master:
+      - key: master
         name: master
         type: com.alibaba.druid.pool.DruidDataSource
         url: jdbc:mysql://localhost:3306/dorm?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC

@@ -1,5 +1,6 @@
 package com.learn.springboot.service;
 
+import com.learn.springboot.annotation.TransactionMulti;
 import com.learn.springboot.entity.Student;
 import com.learn.springboot.mapper.IdentifyScoreMapper;
 import com.learn.springboot.mapper.StudentMapper;
@@ -23,6 +24,7 @@ public class TestTransactionService {
     IdentifyScoreMapper identifyScoreMapper;
 
 //    @Transactional(rollbackFor = RuntimeException.class)
+    @TransactionMulti(value = {"master", "slave"})
     public void test() {
         identifyScoreMapper.updateScore(77);
         Student student = new Student();
@@ -30,9 +32,9 @@ public class TestTransactionService {
         student.setName("test");
         studentMapper.updateById(student);
 
-//        if(1==1) {
-//            throw new RuntimeException("ds");
-//        }
+        if(1==1) {
+            throw new RuntimeException("ds");
+        }
 
         identifyScoreMapper.updateScore(88);
         student = new Student();
