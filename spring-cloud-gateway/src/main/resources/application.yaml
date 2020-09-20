@@ -20,9 +20,11 @@ spring:
           - Query=smile, pu.
 
       - id: lb-route
-          uri: lb://nacos-provider-route
+          uri: lb://nacos-provider/
           predicates:
             - Path=/nacos-provider/**
+          filters:
+            - StripPrefix=1
 
     nacos:
       server-addr: localhost:8848
