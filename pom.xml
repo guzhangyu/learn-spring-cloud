@@ -22,6 +22,9 @@
         <module>spring-cloud-stream</module>
         <module>springboot-quartz</module>
         <module>springboot-multidb</module>
+        <module>spring-cloud-gateway</module>
+        <module>spring-cloud-discovery</module>
+        <module>spring-cloud-gateway/spring-cloud-gateway-hystrix</module>
     </modules>
 
     <dependencies>

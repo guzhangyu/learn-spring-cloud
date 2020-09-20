@@ -1,0 +1,29 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: api-gateway-histrix
+  cloud:
+    gateway:
+      routes:
+        - id: rate_limit_route
+          uri: http://localhost:8082
+          order: 0
+          predicates:
+            - Path=/test/**
+          filters:
+            - StripPrefix=1
+            - name: Hystrix
+              args:
+                name: fallbackCmdA
+                fallbackUri: forward:/fallbackA
+
+  hystrix:
+    command:
+      fallbackCmdA:
+        execution:
+          isolation:
+            thread:
+              timeoutInMilliseconds:
+                5000

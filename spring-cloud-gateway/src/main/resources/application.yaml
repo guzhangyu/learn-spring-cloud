@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+      - id: gateway-service
+        uri: https://www.baidu.com
+        order: 0
+        predicates:
+          - RemoteAddr=192.168.1.10/24
+          - Path=/foo/{segment}
+          - Method=GET
+          - Host=**.baidu.com
+          - Cookie=sessionId, test
+          - Header-X-Request-Id, \d+
+          - Query=smile, pu.
+
+      - id: lb-route
+          uri: lb://nacos-provider-route
+          predicates:
+            - Path=/nacos-provider/**
+
+    nacos:
+      server-addr: localhost:8848
+      discovery:
+        server-addr: localhost:8848
+
+
+

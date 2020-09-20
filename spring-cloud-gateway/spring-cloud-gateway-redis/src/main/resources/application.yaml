@@ -1,0 +1,24 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: api-gateway-redis
+  cloud:
+    gateway:
+      routes:
+      - id: rate_limit_redis
+        uri: http://httpbin.org:80/get
+        predicates:
+          - After=2017-01-20T17:42:47.789-07:00[America/Denver]
+        filters:
+          - name: RequestRateLimiter
+            args:
+              key-resolver: '#{@userKeyResolver}'
+              redis-rate-limiter.replenishRate: 1
+              redis-rate-limiter.burstCapacity: 3
+
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
