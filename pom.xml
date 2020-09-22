@@ -24,7 +24,9 @@
         <module>springboot-multidb</module>
         <module>spring-cloud-gateway</module>
         <module>spring-cloud-discovery</module>
-        <module>spring-cloud-gateway/spring-cloud-gateway-hystrix</module>
+        <module>spring-cloud-gateway</module>
+<!--        <module>spring-cloud-gateway/spring-cloud-gateway-hystrix</module>-->
+<!--        <module>spring-cloud-discovery/spring-cloud-discovery-provider</module>-->
     </modules>
 
     <dependencies>

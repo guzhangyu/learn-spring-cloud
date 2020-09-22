@@ -14,6 +14,7 @@ buildNumber.properties
 
 *.iml
 *.log
+META-INF/application.xml
 
 ## Directory-based project format:
 .idea/

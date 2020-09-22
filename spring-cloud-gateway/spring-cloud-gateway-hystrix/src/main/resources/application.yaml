@@ -3,13 +3,13 @@ server:
 
 spring:
   application:
-    name: api-gateway-histrix
+    name: api-gateway-hystrix
   cloud:
     gateway:
       routes:
         - id: rate_limit_route
-          uri: http://localhost:8082
-          order: 0
+          uri: http://localhost:8081
+          order: 10000
           predicates:
             - Path=/test/**
           filters:

@@ -6,6 +6,10 @@ spring:
     name: api-gateway
   cloud:
     gateway:
+#      discovery:
+#        locator:
+#          enabled: true
+#          lower-case-service-id: true
       routes:
       - id: gateway-service
         uri: https://www.baidu.com
@@ -16,20 +20,19 @@ spring:
           - Method=GET
           - Host=**.baidu.com
           - Cookie=sessionId, test
-          - Header-X-Request-Id, \d+
+          - Header=X-Request-Id, \d+
           - Query=smile, pu.
 
       - id: lb-route
-          uri: lb://nacos-provider/
-          predicates:
-            - Path=/nacos-provider/**
-          filters:
-            - StripPrefix=1
+        uri: lb://nacos-provider
+        predicates:
+          - Path=/nacos-provider/**
+        filters:
+          - StripPrefix=1
 
     nacos:
       server-addr: localhost:8848
       discovery:
         server-addr: localhost:8848
-
 
 
