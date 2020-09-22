@@ -15,6 +15,7 @@ buildNumber.properties
 *.iml
 *.log
 META-INF/application.xml
+.DS_Store
 
 ## Directory-based project format:
 .idea/
