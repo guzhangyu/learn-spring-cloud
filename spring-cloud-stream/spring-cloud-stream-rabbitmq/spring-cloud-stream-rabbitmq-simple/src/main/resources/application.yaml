@@ -18,10 +18,11 @@ spring:
           environment:
             spring:
               rabbitmq:
-                host: localhost
+                virtual-host: ${rabbit.vhost}
+                host: ${rabbit.host}
                 port: 5672
-                username: guest
-                password: guest
+                username: ${rabbit.username}
+                password: ${rabbit.password}
 
 server:
   port: 8855

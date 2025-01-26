@@ -10,6 +10,8 @@ spring:
         ds:
           nacos:
             server-addr: localhost:8848
+            username: nacos
+            password: nacos
             data-id: ${spring.application.name}-sentinel
             group-id: DEFAULT_GROUP
             rule-type: flow

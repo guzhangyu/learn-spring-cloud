@@ -24,6 +24,7 @@ public class DemoReceiver {
 }
 
 interface DemoInput {
+
     String DEMO_INPUT = "demo_input";
 
     @Input(DEMO_INPUT)

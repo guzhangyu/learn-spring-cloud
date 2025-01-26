@@ -8,7 +8,7 @@ import org.apache.dubbo.config.annotation.DubboService;
  * @Date 2020/8/13 8:06 上午
  * @Version 1.0
  */
-@DubboService
+@DubboService(version = "1.0.0")
 public class DemoDbServiceImpl implements DemoDbService {
 
     @Override

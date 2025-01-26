@@ -31,6 +31,8 @@ spring:
           - StripPrefix=1
 
     nacos:
+      username: nacos
+      password: nacos
       server-addr: localhost:8848
       discovery:
         server-addr: localhost:8848

@@ -15,7 +15,7 @@
     <modules>
         <module>spring-cloud-gateway-simple</module>
         <module>spring-cloud-gateway-redis</module>
-        <module>spring-cloud-gateway-hystrix</module>
+<!--        <module>spring-cloud-gateway-hystrix</module>-->
     </modules>
 
     <dependencies>

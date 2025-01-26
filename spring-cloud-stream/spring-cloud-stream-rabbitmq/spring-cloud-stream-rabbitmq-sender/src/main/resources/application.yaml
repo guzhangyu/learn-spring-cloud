@@ -11,3 +11,16 @@ spring:
           producer:
             partitionKeyExpression: payload.id
             partitionCount: 2
+          binder: local_rabbit
+
+      binders:
+        local_rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                virtual-host: ${rabbit.vhost}
+                host: ${rabbit.host}
+                port: 5672
+                username: ${rabbit.username}
+                password: ${rabbit.password}

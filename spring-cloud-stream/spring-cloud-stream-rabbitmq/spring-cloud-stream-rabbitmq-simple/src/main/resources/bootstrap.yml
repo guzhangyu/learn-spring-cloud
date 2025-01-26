@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      discovery:
+        server-addr: localhost:8848
+      config:
+        server-addr: localhost:8848
+        file-extension: yml
+        username: nacos
+        password: nacos
+
+  config:
+    import:
+      - nacos:common.properties

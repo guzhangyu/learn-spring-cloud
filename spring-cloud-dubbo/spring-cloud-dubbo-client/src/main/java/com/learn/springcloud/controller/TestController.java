@@ -3,6 +3,7 @@ package com.learn.springcloud.controller;
 import com.learn.springcloud.service.DemoService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Version 1.0
  */
 @RestController
+@RequestMapping("test")
 public class TestController {
 
     @DubboReference(version = "1.0.0")

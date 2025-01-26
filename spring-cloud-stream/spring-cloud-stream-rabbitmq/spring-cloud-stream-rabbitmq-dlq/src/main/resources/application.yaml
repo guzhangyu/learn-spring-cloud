@@ -7,14 +7,27 @@ spring:
           group: stream-exception-handler
           consumer:
             max-attempts: 1
+          binder: local_rabbit
         example-topic-output:
 #          group: stream-exception-handler
           destination: good-topic
+          binder: local_rabbit
       rabbit:
         bindings:
           example-topic-input:
             consumer:
               auto-bind-dlq: true
+      binders:
+        local_rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                virtual-host: ${rabbit.vhost}
+                host: ${rabbit.host}
+                port: 5672
+                username: ${rabbit.username}
+                password: ${rabbit.password}
 
 server:
   port: 8811

@@ -11,5 +11,11 @@
 
     <artifactId>spring-cloud-discovery-consumer</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
